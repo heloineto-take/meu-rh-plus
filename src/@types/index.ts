@@ -1,9 +1,7 @@
-export enum Sender {
-	React,
-	Content,
-}
+export type Sender = 'REACT' | 'CONTENT';
+export type Command = 'SHOW_REPORT';
 
 export interface ChromeMessage {
 	from: Sender;
-	message: string;
+	command: Command;
 }

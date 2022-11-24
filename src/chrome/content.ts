@@ -1,35 +1,25 @@
-import { ChromeMessage, Sender } from '../@types';
+import { ChromeMessage } from '../@types';
+import commands from './commands';
 
 const listener = (
 	message: ChromeMessage,
 	sender: chrome.runtime.MessageSender,
 	sendResponse: (response?: unknown) => void
 ) => {
-	console.log('[content.js]. Message received', {
+	console.log('[content.js] message received:', {
 		message,
 		sender,
 	});
 
-	if (
-		sender.id === chrome.runtime.id &&
-		message.from === Sender.React &&
-		message.message === 'Hello from React'
-	) {
-		sendResponse('Hello from content.js');
+	if (sender.id !== chrome.runtime.id || message.from !== 'REACT') {
+		return;
 	}
 
-	if (
-		sender.id === chrome.runtime.id &&
-		message.from === Sender.React &&
-		message.message === 'delete logo'
-	) {
-		const logo = document.getElementById('hplogo');
+	const command = commands[message.command];
 
-		logo?.parentElement?.removeChild(logo);
-	}
+	const response = command();
+
+	sendResponse(response);
 };
 
-/**
- * Fired when a message is sent from either an extension process or a content script.
- */
 chrome.runtime.onMessage.addListener(listener);
