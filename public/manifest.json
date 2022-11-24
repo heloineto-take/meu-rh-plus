@@ -1,0 +1,30 @@
+{
+	"name": "Meu RH+",
+	"description": "Additions to Totvs Meu RH platform",
+	"version": "1.0",
+	"icons": {
+		"16": "logo16.png",
+		"48": "logo48.png",
+		"128": "logo128.png"
+	},
+	"start_url": ".",
+	"display": "standalone",
+	"theme_color": "#000000",
+	"background_color": "#ffffff",
+	"browser_action": {
+		"default_popup": "index.html",
+		"default_title": "Open Meu RH+"
+	},
+	"manifest_version": 2,
+	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+	"permissions": ["activeTab"],
+	"optional_permissions": ["<all_urls>"],
+	"content_scripts": [
+		{
+			"matches": ["http://*/*", "https://*/*"],
+			"js": ["./static/js/content.js"],
+			"all_frames": false,
+			"run_at": "document_end"
+		}
+	]
+}
