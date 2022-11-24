@@ -1,34 +1,49 @@
-import { useState } from 'react';
 import useTab from '../lib/hooks/useTab';
 import { sendCommand } from '../lib/utils/chrome';
 import Switch from './Switch';
 import WrongTabWarning from './WrongTabWarning';
 
-const DEFAULT_URL =
-	'https://curupirasa132885.rm.cloudtotvs.com.br/FrameHTML/web/app/RH/PortalMeuRH/#/timesheet/clockings';
+const CLOCKINGS_URLS = [
+	'https://curupirasa132885.rm.cloudtotvs.com.br/FrameHTML/web/app/RH/PortalMeuRH/#/timesheet/clockings',
+	'https://curupirasa132885.rm.cloudtotvs.com.br/FrameHTML//Web/App/RH/PortalMeuRH/#/timesheet/clockings',
+];
+
+//  TODO:
+// - Repo Button
+// - Bug Report Button
+
+const getIsClockingsUrl = (tab: chrome.tabs.Tab | undefined) =>
+	tab?.url !== undefined && CLOCKINGS_URLS.includes(tab.url);
 
 const Home = () => {
 	const tab = useTab();
 
-	const [chromeResponse, setChromeResponse] = useState<unknown>();
+	const isCorrectUrl = getIsClockingsUrl(tab);
 
-	const sendTestMessage = () => {
-		sendCommand('SHOW_REPORT', (response) => setChromeResponse(response));
-	};
+	// useEffect(() => {
+	// 	if (!isCorrectUrl) {
+	// 		return;
+	// 	}
+
+	// 	sendCommand('SHOW_REPORT');
+	// }, [isCorrectUrl]);
+
+	chrome.tabs.onUpdated.addListener(function (tabId, info, tab) {
+		if (info.status === 'complete' && getIsClockingsUrl(tab)) {
+			console.log('BUNKERS!');
+			sendCommand('SHOW_REPORT');
+		}
+	});
 
 	return (
 		<div className="w-80 dark:bg-slate-900 dark:text-slate-50 bg-white p-2.5">
-			{tab?.url === DEFAULT_URL ? (
+			{isCorrectUrl ? (
 				<>
 					<div className="flex w-full items-center justify-between">
-						<div className="font-bold">Meu RH+</div>
+						<div className="font-bold text-lg">Meu RH+</div>
 						<Switch />
 					</div>
-					<div className="flex flex-col items-center">
-						<button onClick={sendTestMessage}>SEND MESSAGE</button>
-						{typeof tab !== undefined ? tab?.url : null}
-						{JSON.stringify(chromeResponse)}
-					</div>
+					<button onClick={() => sendCommand('SHOW_REPORT')}>SHOW_REPORT</button>
 				</>
 			) : (
 				<WrongTabWarning />

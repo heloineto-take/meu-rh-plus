@@ -1,6 +1,7 @@
 {
 	"name": "Meu RH+",
 	"description": "Additions to Totvs Meu RH platform",
+	"manifest_version": 2,
 	"version": "1.0",
 	"icons": {
 		"16": "logo16.png",
@@ -15,7 +16,6 @@
 		"default_popup": "index.html",
 		"default_title": "Open Meu RH+"
 	},
-	"manifest_version": 2,
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 	"permissions": ["activeTab"],
 	"optional_permissions": ["<all_urls>"],

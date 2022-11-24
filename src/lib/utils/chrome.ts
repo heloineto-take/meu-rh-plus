@@ -1,6 +1,6 @@
 import { ChromeMessage, Command } from '../../@types';
 
-export const sendCommand = (command: Command, responseCallback: (response: unknown) => void) => {
+export const sendCommand = (command: Command, responseCallback?: (response: unknown) => void) => {
 	if (chrome.tabs === undefined) {
 		return;
 	}
@@ -22,7 +22,8 @@ export const sendCommand = (command: Command, responseCallback: (response: unkno
 				return;
 			}
 
-			chrome.tabs.sendMessage(currentTabId, message, responseCallback);
+			// eslint-disable-next-line @typescript-eslint/no-empty-function
+			chrome.tabs.sendMessage(currentTabId, message, responseCallback ?? (() => {}));
 		}
 	);
 };

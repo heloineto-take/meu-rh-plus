@@ -13,9 +13,7 @@ const useTab = () => {
 				active: true,
 				lastFocusedWindow: true,
 			},
-			(tabs) => {
-				setTab(tabs[0]);
-			}
+			(tabs) => setTab(tabs[0])
 		);
 	}, []);
 
