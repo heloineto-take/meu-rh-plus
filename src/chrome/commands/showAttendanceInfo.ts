@@ -190,22 +190,24 @@ const getIsLoading = () => {
 	return (loadingScreen as HTMLElement).style.display !== 'none';
 };
 
-const showAttendanceInfo = () => {
-	let isLoading;
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-	const attempts = 10;
+const waitFor = async (func: () => boolean, options = { attempts: 10, sleepMs: 1000 }) => {
+	for (let i = 0; i <= options.attempts; i++) {
+		const result = func();
 
-	for (let i = 0; i <= attempts; i++) {
-		isLoading = getIsLoading();
-
-		if (!isLoading) {
+		if (result) {
 			break;
 		}
+
+		await sleep(options.sleepMs);
 	}
 
-	if (isLoading) {
-		throw Error('max attempts reached. app is still loading');
-	}
+	throw Error('waitFor exceeded max attempts');
+};
+
+const showAttendanceInfo = async () => {
+	await waitFor(() => getIsLoading());
 
 	clearAll();
 
