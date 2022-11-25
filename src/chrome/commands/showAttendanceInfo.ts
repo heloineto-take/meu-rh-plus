@@ -1,3 +1,5 @@
+import clearAll from './clearAll';
+
 const renderHeader = () => {
 	const header = document.querySelector('#table-timesheet > thead > tr');
 	const newHeader = document.createElement('th');
@@ -188,12 +190,6 @@ const getIsLoading = () => {
 	return (loadingScreen as HTMLElement).style.display !== 'none';
 };
 
-const clearPrevious = () => {
-	const injectedElements = document.querySelectorAll('.meu-rh-plus-injected');
-
-	injectedElements.forEach((element) => element.remove());
-};
-
 const showAttendanceInfo = () => {
 	let isLoading;
 
@@ -211,7 +207,7 @@ const showAttendanceInfo = () => {
 		throw Error('max attempts reached. app is still loading');
 	}
 
-	clearPrevious();
+	clearAll();
 
 	renderHeader();
 

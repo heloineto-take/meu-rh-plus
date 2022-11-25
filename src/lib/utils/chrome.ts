@@ -1,5 +1,10 @@
 import { ChromeMessage, Command } from '../../@types';
 
+const CLOCKINGS_URLS = [
+	'https://curupirasa132885.rm.cloudtotvs.com.br/FrameHTML/web/app/RH/PortalMeuRH/#/timesheet/clockings',
+	'https://curupirasa132885.rm.cloudtotvs.com.br/FrameHTML//Web/App/RH/PortalMeuRH/#/timesheet/clockings',
+];
+
 export const sendCommand = (command: Command, responseCallback?: (response: unknown) => void) => {
 	if (chrome.tabs === undefined) {
 		return;
@@ -26,4 +31,15 @@ export const sendCommand = (command: Command, responseCallback?: (response: unkn
 			chrome.tabs.sendMessage(currentTabId, message, responseCallback ?? (() => {}));
 		}
 	);
+};
+
+export const getIsClockingsUrl = (tab: chrome.tabs.Tab | undefined) =>
+	tab?.url !== undefined && CLOCKINGS_URLS.includes(tab.url);
+
+export const activateChanges = () => {
+	sendCommand('SHOW_REPORT');
+};
+
+export const deactivateChanges = () => {
+	sendCommand('CLEAR_ALL');
 };

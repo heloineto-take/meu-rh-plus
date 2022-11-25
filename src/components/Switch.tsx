@@ -7,9 +7,9 @@ const Switch = () => {
 	return (
 		<button
 			className={classNames(
-				'relative inline-flex h-8 w-16 items-center rounded-full py-2 px-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900',
+				'relative inline-flex h-8 w-16 items-center rounded-full py-2 px-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-stone-900',
 				on
-					? 'bg-slate-700 text-slate-400 focus-visible:ring-slate-500'
+					? 'bg-stone-700 text-stone-400 focus-visible:ring-stone-500'
 					: 'bg-emerald-600 text-emerald-200 focus-visible:ring-emerald-800'
 			)}
 			onClick={() => setOn((value) => !value)}
@@ -32,8 +32,8 @@ const Switch = () => {
 			</div>
 			<span
 				className={classNames(
-					'absolute top-1/2 left-1 flex h-6 w-6 -translate-y-1/2 transform items-center justify-center rounded-full bg-white transition duration-500',
-					on ? '' : 'translate-x-[2rem]'
+					'absolute top-1/2 left-1 flex h-6 w-6 -transtone-y-1/2 transform items-center justify-center rounded-full bg-white transition duration-500',
+					on ? '' : 'transtone-x-[2rem]'
 				)}
 			/>
 		</button>
