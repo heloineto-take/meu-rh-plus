@@ -1,5 +1,11 @@
+import { useState } from 'react';
 import useTab from '../lib/hooks/useTab';
-import { getIsClockingsUrl, sendCommand } from '../lib/utils/chrome';
+import {
+	activateChanges,
+	deactivateChanges,
+	getIsClockingsUrl,
+	sendCommand,
+} from '../lib/utils/chrome';
 import Switch from './Switch';
 import WrongTabWarning from './WrongTabWarning';
 
@@ -9,6 +15,7 @@ import WrongTabWarning from './WrongTabWarning';
 
 const Home = () => {
 	const tab = useTab();
+	const [active, setActive] = useState(false);
 
 	const isCorrectUrl = getIsClockingsUrl(tab);
 
@@ -27,15 +34,28 @@ const Home = () => {
 		}
 	});
 
+	const onClickSwitch = () => {
+		setActive((oldValue) => {
+			const newValue = !oldValue;
+
+			if (newValue) {
+				activateChanges();
+			} else {
+				deactivateChanges();
+			}
+
+			return newValue;
+		});
+	};
+
 	return (
 		<div className="w-80 dark:bg-stone-900 dark:text-stone-50 bg-white p-2.5">
 			{isCorrectUrl ? (
 				<>
 					<div className="flex w-full items-center justify-between">
 						<div className="font-bold text-lg">Meu RH+</div>
-						<Switch />
+						<Switch value={active} onClick={onClickSwitch} />
 					</div>
-					<button onClick={() => sendCommand('SHOW_REPORT')}>SHOW_REPORT</button>
 				</>
 			) : (
 				<WrongTabWarning />
