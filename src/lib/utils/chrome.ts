@@ -33,7 +33,7 @@ export const sendCommand = (command: Command, responseCallback?: (response: unkn
 	);
 };
 
-export const getIsClockingsUrl = (tab: chrome.tabs.Tab | undefined) =>
+export const getIsClockingsTab = (tab: chrome.tabs.Tab | undefined) =>
 	tab?.url !== undefined && CLOCKINGS_URLS.includes(tab.url);
 
 export const activateChanges = () => {
