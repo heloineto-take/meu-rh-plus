@@ -23,4 +23,3 @@ const listener = (
 };
 
 chrome.runtime.onMessage.addListener(listener);
-chrome.runtime.onStartup.addListener(() => console.log('onStartup'));

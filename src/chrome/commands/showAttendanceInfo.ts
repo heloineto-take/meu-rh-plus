@@ -196,9 +196,7 @@ const waitFor = async (func: () => boolean, options = { attempts: 10, sleepMs: 1
 	for (let i = 0; i <= options.attempts; i++) {
 		const result = func();
 
-		if (result) {
-			break;
-		}
+		if (result) return;
 
 		await sleep(options.sleepMs);
 	}
@@ -207,7 +205,10 @@ const waitFor = async (func: () => boolean, options = { attempts: 10, sleepMs: 1
 };
 
 const showAttendanceInfo = async () => {
-	await waitFor(() => getIsLoading());
+	await waitFor(() => {
+		const isLoading = getIsLoading();
+		return !isLoading;
+	});
 
 	clearAll();
 
