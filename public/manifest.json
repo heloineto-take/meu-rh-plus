@@ -2,7 +2,7 @@
 	"name": "Meu RH+",
 	"description": "Additions to Totvs Meu RH platform",
 	"manifest_version": 3,
-	"version": "1.0",
+	"version": "0.0.1",
 	"icons": {
 		"16": "logo16.png",
 		"48": "logo48.png",
@@ -17,9 +17,10 @@
 		"extension_pages": "script-src 'self'; object-src 'self'"
 	},
 	"permissions": ["activeTab"],
+	"host_permissions": ["*://curupirasa132885.rm.cloudtotvs.com.br/*"],
 	"content_scripts": [
 		{
-			"matches": ["http://*/*", "https://*/*"],
+			"matches": ["*://curupirasa132885.rm.cloudtotvs.com.br/*"],
 			"js": ["./static/js/content.js"],
 			"all_frames": false,
 			"run_at": "document_end"

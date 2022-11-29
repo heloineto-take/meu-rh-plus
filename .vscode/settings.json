@@ -13,5 +13,5 @@
 		"**/.next": true,
 		"**/.husky": true
 	},
-	"cSpell.words": ["craco", "totvs"]
+	"cSpell.words": ["cloudtotvs", "craco", "curupirasa", "totvs"]
 }
