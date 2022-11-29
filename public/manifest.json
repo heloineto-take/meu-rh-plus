@@ -26,5 +26,9 @@
 			"all_frames": false,
 			"run_at": "document_end"
 		}
-	]
+	],
+	"background": {
+		"scripts": ["./static/js/background.js"],
+		"persistent": false
+	}
 }
