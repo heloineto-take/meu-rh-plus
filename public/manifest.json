@@ -16,8 +16,7 @@
 	"content_security_policy": {
 		"extension_pages": "script-src 'self'; object-src 'self'"
 	},
-	"permissions": ["tabs", "activeTab"],
-	"optional_permissions": ["<all_urls>"],
+	"permissions": ["activeTab"],
 	"content_scripts": [
 		{
 			"matches": ["http://*/*", "https://*/*"],
@@ -25,9 +24,5 @@
 			"all_frames": false,
 			"run_at": "document_end"
 		}
-	],
-	"background": {
-		"service_worker": "./static/js/background.js",
-		"type": "module"
-	}
+	]
 }
