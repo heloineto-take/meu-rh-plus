@@ -14,8 +14,7 @@
 	"background_color": "#ffffff",
 	"action": { "default_popup": "index.html", "default_title": "Open Meu RH+" },
 	"content_security_policy": {
-		"extension_pages": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-		"sandbox": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+		"extension_pages": "script-src 'self'; object-src 'self'"
 	},
 	"permissions": ["tabs", "activeTab"],
 	"optional_permissions": ["<all_urls>"],
